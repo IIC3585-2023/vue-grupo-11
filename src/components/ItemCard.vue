@@ -4,6 +4,8 @@ import { CCard, CCardImage, CCardBody, CCardTitle, CCardText,
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { ref } from 'vue'
 
+import { useFavouriteStore } from '../stores/favouriteItems.js'
+
 const props = defineProps({
     id: Number,
     title: String,
@@ -21,11 +23,23 @@ const {id, title, imgURL, description, author, category, amount, campus, authorI
 
 const favourite = ref(props.favourite);
 
+const favouriteItems = useFavouriteStore();
+
 const toggleFavourite = () => {
     favourite.value = !favourite.value
     //TODO: Agregar funcion para mantener los favoritos en el store.
     //      Habria que agregar el ID o el item completo cuando se ahce favourite,
-    //      y eliminarlo cuando se hace un-favourite
+    //      y eliminarlo cuando se hace un-favourite\
+    if (favourite.value) {
+        favouriteItems.addFavourite({
+            id, title, imgURL, description, author, category, amount, campus, authorId, favourite
+        })
+        // console.log(favouriteItems.favourites)
+        // console.log(favouriteItems.getFavouriteIds())
+    } else {
+        favouriteItems.removeById(id)
+        // console.log(favouriteItems.getFavouriteIds())
+    }
 }
 
 const buyItem = () => {
