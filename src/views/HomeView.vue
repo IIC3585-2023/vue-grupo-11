@@ -7,13 +7,13 @@ import { useFavouriteStore } from '../stores/favouriteItems.js'
 const favouriteStore = useFavouriteStore()
 
 const favouriteItems = favouriteStore.favourites
-
+console.log(favouriteItems)
 </script>
 
 <template>
   <main>
     <CRow :xs="{cols: 1}" :md="{cols: 2}" :lg="{cols: 3}" :xxl="{cols: 4}">
-        <CCol xs v-for="prop in favouriteItems" class="d-flex justify-content-center">
+        <CCol xs v-for="prop in favouriteItems" class="d-flex justify-content-center" :key="prop.id">
             <ItemCard 
                 :id="prop.id"
                 :title="prop.title"

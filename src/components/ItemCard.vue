@@ -59,6 +59,7 @@ const contactAuthor = () => {
         <CCardHeader>
             <div class="d-flex justify-content-between">
                 {{ author }}
+                <!-- {{ id }} -->
                 <img :src="[favourite ? 'src/assets/star-fill.svg' : 'src/assets/star.svg']" v-on:click="toggleFavourite"/>
             </div>
             {{ campus }}

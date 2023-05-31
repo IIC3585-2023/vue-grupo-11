@@ -6,6 +6,8 @@ export const useFavouriteStore = defineStore('favouriteItems', () => {
 
     const addFavourite = (item) => {
         favourites.push(item)
+        // console.log("After add:")
+        // console.log(favourites)
     }
 
     const removeById = (id) => {
@@ -17,6 +19,8 @@ export const useFavouriteStore = defineStore('favouriteItems', () => {
             currentIdx += 1
         }
         favourites.splice(currentIdx, 1)
+        // console.log("After delete:")
+        // console.log(favourites)
     }
 
     // const favouriteIds = computed(() => { favourites.map((item) => {
