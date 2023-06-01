@@ -7,7 +7,6 @@ import { useFavouriteStore } from '../stores/favouriteItems.js'
 const favouriteStore = useFavouriteStore()
 
 const favouriteItems = favouriteStore.favourites
-console.log(favouriteItems)
 </script>
 
 <template>

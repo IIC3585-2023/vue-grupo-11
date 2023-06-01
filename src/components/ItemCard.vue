@@ -1,6 +1,6 @@
 <script setup>
 import { CCard, CCardImage, CCardBody, CCardTitle, CCardText,
-        CCardSubtitle, CCardHeader, CButton} from "@coreui/vue";
+        CCardSubtitle, CCardHeader, CButton, CCardFooter } from "@coreui/vue";
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { ref } from 'vue'
 
@@ -70,16 +70,18 @@ const contactAuthor = () => {
             <CCardSubtitle class="mb-2">{{ category }}</CCardSubtitle>
             <CCardText>{{ description }}</CCardText>
             <CCardTitle>{{ new Intl.NumberFormat('es-cl', { style: 'currency', currency: 'CLP' }).format(amount) }}</CCardTitle>
+        </CCardBody>
+        <CCardFooter>
             <div class="d-flex justify-content-between">
                 <CButton color="success" variant="outline" v-on:click="buyItem">Comprar</CButton>
                 <CButton color="info" variant="outline" v-on:click="contactAuthor">Contacto</CButton>
             </div>
-        </CCardBody>
+        </CCardFooter>
     </CCard>
 </template>
 
 <style scoped>
 .card {
-    margin: 20px
+    margin: 20px;
 }
 </style>
