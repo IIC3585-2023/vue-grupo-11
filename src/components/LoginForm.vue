@@ -60,39 +60,60 @@ const loginRequest = async () => {
 </script>
 
 <template>
-    <CCard>
-        <CForm style="width: 100%; padding-left: 25%; padding-right: 25%;">
-                <!-- text: text under the input box -->
-            <CFormInput style="margin-top: 10px;"
-                type="email"
-                id="emailInput"
-                label=""
-                placeholder="name@example.com"
-                text="" 
-                aria-describedby="exampleFormControlInputHelpInline"
-                :value="email"
-                @input="email = $event.target.value"
-            />
-            <br>
-            <CFormInput
-                type="password" 
-                id="passwordInput"
-                placeholder="Password"
-                label=""
-                :value="password"
-                @input="password = $event.target.value"
-            />
-            <br>
-            <div v-if="formError == true">
-                <CAlert color="danger" class="d-flex align-items-center">
-                    <CIcon :icon="cilWarning" class="flex-shrink-0 me-2" width="24" height="24" />
-                    <div>
-                        Error signing up
-                    </div>
-                </CAlert>
-            </div>
-            <br>
-            <CButton :disabled="loginButtonDisabled" style="margin-left: 45%;" color="primary" @click="loginRequest">Login</CButton>
-        </CForm>
-    </CCard>
+    <CForm id="form">
+            <!-- text: text under the input box -->
+        <p class="fs-1" id="formTitle">Login</p>
+        <CFormInput
+            type="email"
+            id="emailInput"
+            label=""
+            placeholder="name@example.com"
+            text="" 
+            aria-describedby="exampleFormControlInputHelpInline"
+            :value="email"
+            @input="email = $event.target.value"
+        />
+        <br>
+        <CFormInput
+            type="password" 
+            id="passwordInput"
+            placeholder="Password"
+            label=""
+            :value="password"
+            @input="password = $event.target.value"
+        />
+        <br>
+        <div v-if="formError == true">
+            <CAlert color="danger" class="d-flex align-items-center">
+                <CIcon :icon="cilWarning" class="flex-shrink-0 me-2" width="24" height="24" />
+                <div>
+                    Error signing up
+                </div>
+            </CAlert>
+        </div>
+        <br>
+        <CButton id="loginButton" :disabled="loginButtonDisabled" color="primary" @click="loginRequest">Login</CButton>
+    </CForm>
 </template>
+
+<style scoped>
+#form {
+    width: 70%; 
+    padding-left: 25%; 
+    padding-right: 25%;
+    padding-top: 10px;
+    box-shadow: 10px 10px 5px 12px lightblue;
+    margin-left: 15%;
+    margin-top: 10px;
+}
+#emailInput {
+    margin-top: 10%;
+}
+#formTitle{
+    padding-left: 25%;
+}
+#loginButton {
+    margin-left: 35%;
+    margin-bottom: 15%;
+}
+</style>
