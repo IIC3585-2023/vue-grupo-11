@@ -55,7 +55,7 @@ const contactAuthor = () => {
 
 
 <template>
-    <CCard style="max-width: 25rem">
+    <CCard style="max-width: 24rem">
         <CCardHeader>
             <div class="d-flex justify-content-between">
                 {{ author }}
@@ -82,6 +82,7 @@ const contactAuthor = () => {
 
 <style scoped>
 .card {
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 </style>
