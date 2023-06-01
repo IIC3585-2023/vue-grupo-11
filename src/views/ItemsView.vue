@@ -4,6 +4,7 @@ import { ref } from "vue"
 import { API_URL } from "../global"
 import { CRow, CCol } from '@coreui/vue'
 import { useFavouriteStore } from '../stores/favouriteItems';
+import NavBar from '../components/navbar.vue'
 
 const favouriteStore = useFavouriteStore()
 
@@ -66,6 +67,7 @@ getProps();
 </script>
 
 <template>
+    <NavBar></NavBar>
     <div v-if="loading">Loading...</div>
     <CRow v-else :xs="{cols: 1}" :md="{cols: 2}" :lg="{cols: 3}" :xxl="{cols: 4}">
         <CCol xs v-for="prop in cardProps" class="d-flex justify-content-center">

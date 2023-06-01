@@ -10,6 +10,7 @@ import { CDropdown } from '@coreui/vue';
 import { CDropdownMenu } from '@coreui/vue';
 import { CDropdownToggle } from '@coreui/vue';
 import { CDropdownItem } from '@coreui/vue';
+import { RouterLink } from 'vue-router';
 import { CNavbarNav } from '@coreui/vue';
 import { CIcon } from '@coreui/icons-vue';
 import { cilPeople } from '@coreui/icons';
@@ -62,30 +63,30 @@ loadSession();
 
 <template>
     <CNavbar expand="lg" color-scheme="light" class="bg-light">
-        <CContainer fluid>
-            <CNavbarBrand href="" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
+        <CContainer fluid class="position-relative">
+            <CNavbarBrand class="clickableItem" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
             <CNavbarToggler />
             <CCollapse class="navbar-collapse" :visible="visible">
             <CNavbarNav>
                 <CNavItem>
-                    <CNavLink href="#" active @click="redirectToItemsPage">
+                    <CNavLink class="clickableItem" active @click="redirectToItemsPage">
                         Items
                     </CNavLink>
                 </CNavItem>
                     <div v-if="loggedIn === true">
                         <CNavItem>
-                            <CNavLink href="#" active>
+                            <CNavLink class="clickableItem" active>
                                 Messages
                             </CNavLink>
                         </CNavItem>
                     </div>
                 
             </CNavbarNav>
-            <CDropdown id="sessionIcon">
+            <CDropdown id="iconDropdown" class="position-absolute top-0 end-0">
                 <CDropdownToggle color="primary">
                     <CIcon :icon="cilPeople" size="xl"/>
                 </CDropdownToggle>
-                <CDropdownMenu :id="sessionIcon">
+                <CDropdownMenu>
                     <div v-if="loggedIn !== true">
                         <CDropdownItem @click="redirectToLogin">Login</CDropdownItem>
                         <CDropdownItem @click="redirectToSignUp">Sign up</CDropdownItem>
@@ -105,5 +106,11 @@ loadSession();
 <style scoped>
 #sessionIcon {
     margin-left: 80%;
+}
+.clickableItem {
+    cursor:pointer
+}
+#iconDropdown {
+    margin-right: 15px;
 }
 </style>
