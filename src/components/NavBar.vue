@@ -15,40 +15,52 @@ import { CIcon } from '@coreui/icons-vue';
 import { cilPeople } from '@coreui/icons';
 import  router  from '../router/index'
 import '@coreui/coreui/dist/css/coreui.min.css'
+import { sessionStore } from '../stores/session';
+import { ref } from 'vue';
 
-</script>
-<script>
-export default {
-    data() {
-        // const session = sessionStore();
-        // const loggedIn = session.loggedIn;
-        return {
-            loggedIn: false,
-            username: "komplex"
-        };
-    },
-    methods: {
-        redirectToLogin: () => {
-        router.push('/login')
-        },
-        redirectToHomePage: () => {
-            router.push('/')
-        },
-        redirectToSignUp: () => {
-            router.push('/sign_up')
-        },
-        signOut: () => {
-            console.log("Sign out")
-        }
-    }
+const session = sessionStore();
+
+const loggedIn = ref(false);
+const username = ref("");
+
+const redirectToHomePage = () => {
+    router.push('/');
 }
+
+const redirectToLogin = () => {
+    router.push('/login');
+}
+
+const redirectToSignUp = () => {
+    router.push('/sign_up')
+}
+
+const loadSession = () => {
+    if(!session.loggedIn){
+        return;
+    }
+
+    loggedIn.value = session.loggedIn;
+    username.value = session.user.userName;
+
+}
+
+const signOut = () => {
+    loggedIn.value = false;
+    username.value = false;
+    session.$reset();
+    redirectToLogin();
+}
+
+loadSession();
+
 </script>
 
 <template>
     <CNavbar expand="lg" color-scheme="light" class="bg-light">
         <CContainer fluid>
             <CNavbarBrand href="" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
-            <CNavbarToggler @click="visible = !visible"/>
+            <CNavbarToggler />
             <CCollapse class="navbar-collapse" :visible="visible">
             <CNavbarNav>
                 <CNavItem>
@@ -65,7 +77,7 @@ export default {
                     </div>
                 
             </CNavbarNav>
-            <CDropdown>
+            <CDropdown id="sessionIcon">
                 <CDropdownToggle color="primary">
                     <CIcon :icon="cilPeople" size="xl"/>
                 </CDropdownToggle>
@@ -76,7 +88,7 @@ export default {
                     </div>
                     <div v-else>
                         <CDropdownItem>{{ username }}</CDropdownItem>
-                        <CDropdownItem @click="redirectToLogin">Sign Out</CDropdownItem>
+                        <CDropdownItem @click="signOut">Sign Out</CDropdownItem>
                     </div>
                 </CDropdownMenu>
             </CDropdown>
@@ -86,5 +98,8 @@ export default {
     </CNavbar>
 </template>
 
-<style>
+<style scoped>
+#sessionIcon {
+    margin-left: 80%;
+}
 </style>
