@@ -27,6 +27,10 @@ const redirectToHomePage = () => {
     router.push('/');
 }
 
+const redirectToItemsPage = () => {
+    router.push('/items')
+}
+
 const redirectToLogin = () => {
     router.push('/login');
 }
@@ -64,7 +68,7 @@ loadSession();
             <CCollapse class="navbar-collapse" :visible="visible">
             <CNavbarNav>
                 <CNavItem>
-                    <CNavLink href="#" active>
+                    <CNavLink href="#" active @click="redirectToItemsPage">
                         Items
                     </CNavLink>
                 </CNavItem>

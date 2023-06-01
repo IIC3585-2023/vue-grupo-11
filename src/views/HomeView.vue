@@ -1,7 +1,7 @@
 <script setup>
 import ItemCard from '../components/ItemCard.vue';
 import {CRow, CCol} from '@coreui/vue'
-import NavBar from '../components/navbar.vue'
+// import NavBar from '../components/Navbar.vue'
 import { useFavouriteStore } from '../stores/favouriteItems.js'
 
 const favouriteStore = useFavouriteStore()
@@ -13,7 +13,7 @@ const favouriteItems = favouriteStore.favourites
 
 <template>
   <main>
-    <NavBar></NavBar>
+    <!-- <NavBar></NavBar> -->
     <CRow :xs="{cols: 1}" :md="{cols: 2}" :lg="{cols: 3}" :xxl="{cols: 4}">
         <CCol xs v-for="prop in favouriteItems" class="d-flex justify-content-center" :key="prop.id">
             <ItemCard 
