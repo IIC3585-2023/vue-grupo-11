@@ -20,6 +20,10 @@ const redirectToHome = () => {
     router.push('/');
 }
 
+const redirectToItems = () => {
+    router.push('/items');
+}
+
 const loginRequest = async () => {
 
     //Disable login button
@@ -54,7 +58,7 @@ const loginRequest = async () => {
     session.jwt = responseBody.jwt;
     session.user = responseBody.user;
 
-    redirectToHome();
+    redirectToItems();
 }
 
 </script>
