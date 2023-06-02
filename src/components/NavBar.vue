@@ -40,6 +40,10 @@ const redirectToSignUp = () => {
     router.push('/sign_up')
 }
 
+const redirectToMyItemsView = () => {
+    router.push('/my_items')
+}
+
 const loadSession = () => {
     if(!session.loggedIn){
         return;
@@ -73,14 +77,18 @@ loadSession();
                         Favourite Items
                     </CNavLink>
                 </CNavItem>
-                    <div v-if="loggedIn === true">
-                        <CNavItem>
-                            <CNavLink class="clickableItem" active>
-                                Messages
-                            </CNavLink>
-                        </CNavItem>
-                    </div>
-                
+                <div v-if="loggedIn === true">
+                    <CNavItem>
+                        <CNavLink class="clickableItem" active>
+                            Messages
+                        </CNavLink>
+                    </CNavItem>
+                </div>
+                <CNavItem v-if="loggedIn">
+                    <CNavLink class="clickableItem" active @click="redirectToMyItemsView">
+                        My Items
+                    </CNavLink>
+                </CNavItem>
             </CNavbarNav>
             <CDropdown id="iconDropdown" class="position-absolute top-0 end-0">
                 <CDropdownToggle color="primary">

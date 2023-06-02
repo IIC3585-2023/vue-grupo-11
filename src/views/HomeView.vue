@@ -21,11 +21,11 @@ const getProps = async () => {
                 title: item.title,
                 imgURL: item.imagesURL[0],
                 description: item.description,
-                author: item.user.userName,
+                author: item.userName,
                 category: item.category,
                 amount: item.amount,
                 campus: item.campus,
-                authorId: item.user.id,
+                authorId: item.user_id,
                 favourite: favouriteStore.favouriteIds.includes(item.id)
             }
         })
