@@ -68,9 +68,9 @@ loadSession();
             <CNavbarToggler />
             <CCollapse class="navbar-collapse" :visible="visible">
             <CNavbarNav>
-                <CNavItem>
+                <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
-                        Items
+                        Favourite Items
                     </CNavLink>
                 </CNavItem>
                     <div v-if="loggedIn === true">

@@ -84,7 +84,7 @@ const editItem = () => {
             <CCardText>{{ description }}</CCardText>
             <CCardTitle>{{ new Intl.NumberFormat('es-cl', { style: 'currency', currency: 'CLP' }).format(amount) }}</CCardTitle>
         </CCardBody>
-        <CCardFooter>
+        <CCardFooter v-if="!(currentUserId === null)">
             <div v-if="currentUserId === authorId" class="d-flex justify-content-between">
                 <CButton color="warning" variant="outline" v-on:click="editItem">Editar</CButton>
             </div>

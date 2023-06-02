@@ -1,43 +1,12 @@
 <script setup>
 import ItemCard from '../components/ItemCard.vue';
-import { ref } from "vue"
-import { API_URL } from "../global"
 import { CRow, CCol } from '@coreui/vue'
 import { useFavouriteStore } from '../stores/favouriteItems';
 import NavBar from '../components/navbar.vue'
 
-const favouriteStore = useFavouriteStore()
+const favouriteStore = useFavouriteStore();
 
-// TODO: Llamar a la api para conseguir estos props
-const loading = ref(true)
-let cardProps = []
-
-const getProps = async () => {
-    const response = await fetch(`${API_URL}/items`)
-    if (response.status === 200) {
-        const rawProps = await response.json()
-        console.log(rawProps)
-        cardProps = rawProps.map( (item) => {
-            return {
-                id: item.id,
-                title: item.title,
-                imgURL: item.imagesURL[0],
-                description: item.description,
-                author: item.user.userName,
-                category: item.category,
-                amount: item.amount,
-                campus: item.campus,
-                authorId: item.user.id,
-                favourite: favouriteStore.favouriteIds.includes(item.id)
-            }
-        })
-        loading.value = false;
-    } else {
-        console.log('Failed to fetch :(')
-    }
-}
-getProps();
-
+const favouriteItems = favouriteStore.favourites;
 
 // const cardProps = [
 //     {
@@ -68,9 +37,8 @@ getProps();
 
 <template>
     <NavBar></NavBar>
-    <div v-if="loading">Loading...</div>
-    <CRow v-else :xs="{cols: 1}" :md="{cols: 2}" :lg="{cols: 3}" :xxl="{cols: 4}">
-        <CCol xs v-for="prop in cardProps" class="d-flex justify-content-center">
+    <CRow :xs="{cols: 1}" :md="{cols: 2}" :lg="{cols: 3}" :xxl="{cols: 4}">
+        <CCol xs v-for="prop in favouriteItems" class="d-flex justify-content-center" :key="prop.id">
             <ItemCard 
                 :id="prop.id"
                 :title="prop.title"
