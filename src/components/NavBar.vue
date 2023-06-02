@@ -40,6 +40,9 @@ const redirectToSignUp = () => {
     router.push('/sign_up')
 }
 
+const redirectToMyItemsView = () => {
+    router.push('/my_items')
+}
 const redirectCreateItem = () => {
     router.push('/create_item')
 }
@@ -72,26 +75,30 @@ loadSession();
             <CNavbarToggler />
             <CCollapse class="navbar-collapse" :visible="visible">
             <CNavbarNav>
-                <CNavItem>
+                <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
-                        Items
+                        Favourite Items
                     </CNavLink>
                 </CNavItem>
-                    <div v-if="loggedIn === true">
-                        <CNavItem>
-                            <CNavLink class="clickableItem" active>
-                                Messages
-                            </CNavLink>
-                        </CNavItem>
-                    </div>
-                    <div v-if="loggedIn === true">
-                        <CNavItem>
-                            <CNavLink class="clickableItem" active @click="redirectCreateItem">
-                                Create Item
-                            </CNavLink>
-                        </CNavItem>
-                    </div>
-                
+                <div v-if="loggedIn === true">
+                    <CNavItem>
+                        <CNavLink class="clickableItem" active>
+                            Messages
+                        </CNavLink>
+                    </CNavItem>
+                </div>
+                <CNavItem v-if="loggedIn">
+                    <CNavLink class="clickableItem" active @click="redirectToMyItemsView">
+                        My Items
+                    </CNavLink>
+                </CNavItem>
+                <div v-if="loggedIn === true">
+                    <CNavItem>
+                        <CNavLink class="clickableItem" active @click="redirectCreateItem">
+                            Create Item
+                        </CNavLink>
+                    </CNavItem>
+                </div>
             </CNavbarNav>
             <CDropdown id="iconDropdown" class="position-absolute top-0 end-0">
                 <CDropdownToggle color="primary">
