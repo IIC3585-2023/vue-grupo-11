@@ -5,6 +5,14 @@ import '@coreui/coreui/dist/css/coreui.min.css'
 import { ref } from 'vue'
 
 import { useFavouriteStore } from '../stores/favouriteItems.js'
+import { sessionStore } from "../stores/session";
+
+const session = sessionStore();
+
+let currentUserId = null;
+if (session.loggedIn) {
+    currentUserId = session.user.id;
+}
 
 const props = defineProps({
     id: Number,
@@ -51,6 +59,11 @@ const contactAuthor = () => {
     //TODO: Hacer que esta funcion haga lo que tiene que hacer
     console.log(`Contacted ${author} (ID: ${authorId})!`)
 }
+
+const editItem = () => {
+    //TODO: Hacer que esta funcion haga lo que tenga que hacer
+    console.log(`Tried to edit item ${id}!`)
+}
 </script>
 
 
@@ -72,7 +85,10 @@ const contactAuthor = () => {
             <CCardTitle>{{ new Intl.NumberFormat('es-cl', { style: 'currency', currency: 'CLP' }).format(amount) }}</CCardTitle>
         </CCardBody>
         <CCardFooter>
-            <div class="d-flex justify-content-between">
+            <div v-if="currentUserId === authorId" class="d-flex justify-content-between">
+                <CButton color="warning" variant="outline" v-on:click="editItem">Editar</CButton>
+            </div>
+            <div v-else class="d-flex justify-content-between">
                 <CButton color="success" variant="outline" v-on:click="buyItem">Comprar</CButton>
                 <CButton color="info" variant="outline" v-on:click="contactAuthor">Contacto</CButton>
             </div>
