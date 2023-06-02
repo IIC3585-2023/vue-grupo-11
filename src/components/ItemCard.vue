@@ -6,12 +6,15 @@ import { ref } from 'vue'
 
 import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { sessionStore } from "../stores/session";
+import { API_URL } from "../global.js";
 
 const session = sessionStore();
 
 let currentUserId = null;
+let token = ''
 if (session.loggedIn) {
     currentUserId = session.user.id;
+    token = session.jwt
 }
 
 const props = defineProps({
@@ -25,9 +28,22 @@ const props = defineProps({
     amount: Number,
     campus: String,
     favourite: Boolean,
+    bought: {
+        type: Boolean,
+        default: false,
+    },
+    buyerId: {
+        type: Number,
+        default: -1,
+    },
+    buyerUsername: {
+        type: String,
+        default: '',
+    }
 });
 
-const {id, title, imgURL, description, author, category, amount, campus, authorId} = props;
+const {id, title, imgURL, description, author, category, amount,
+    campus, authorId, bought, buyerId, buyerUsername} = props;
 
 const favourite = ref(props.favourite);
 
@@ -50,14 +66,37 @@ const toggleFavourite = () => {
     }
 }
 
-const buyItem = () => {
-    //TODO: Hacer que esta funcion llame a la api/haga lo que tenga que hacer
-    console.log(`Bought item ${id}!`)
+const buyItem = async () => {
+    if (currentUserId) {
+        const response = await fetch(`${API_URL}/items/buy`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({id: id})
+        });
+        if (response.status === 200) {
+            console.log('Response OK, item bought!');
+            //TODO: Redirect a los mensajes.
+        }
+        else {
+            console.log('Could not buy item.')
+        }
+    }
+    else {
+        console.log('You are not logged in, could not buy')
+    }
 }
 
 const contactAuthor = () => {
     //TODO: Hacer que esta funcion haga lo que tiene que hacer
     console.log(`Contacted ${author} (ID: ${authorId})!`)
+}
+
+const contactBuyer = () => {
+    //TODO: Hacer que esta funcion haga lo que tenga que hacer
+    console.log(`Contacted ${buyerUsername} (ID: ${buyerId})!`)
 }
 
 const editItem = () => {
@@ -85,7 +124,11 @@ const editItem = () => {
             <CCardTitle>{{ new Intl.NumberFormat('es-cl', { style: 'currency', currency: 'CLP' }).format(amount) }}</CCardTitle>
         </CCardBody>
         <CCardFooter v-if="!(currentUserId === null)">
-            <div v-if="currentUserId === authorId" class="d-flex justify-content-between">
+            <div v-if='bought' class="d-flex justify-content-between">
+                <CCardText>Comprado por {{ buyerUsername }}</CCardText>
+                <CButton color="info" variant="outline" v-on:click="contactBuyer">Contacto</CButton>
+            </div>
+            <div v-else-if="currentUserId === authorId" class="d-flex justify-content-between">
                 <CButton color="warning" variant="outline" v-on:click="editItem">Editar</CButton>
             </div>
             <div v-else class="d-flex justify-content-between">
