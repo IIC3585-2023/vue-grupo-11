@@ -50,6 +50,9 @@ const favouriteItems = favouriteStore.favourites;
                 :campus="prop.campus"
                 :favourite="prop.favourite"
                 :authorId="prop.authorId" 
+                :bought="prop.bought"
+                :buyerId="prop.buyerId"
+                :buyerUsername="prop.buyerUsername"
             />
         </CCol>
     </CRow>

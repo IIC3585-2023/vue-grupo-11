@@ -56,7 +56,7 @@ const toggleFavourite = () => {
     //      y eliminarlo cuando se hace un-favourite\
     if (favourite.value) {
         favouriteItems.addFavourite({
-            id, title, imgURL, description, author, category, amount, campus, authorId, favourite
+            id, title, imgURL, description, author, category, amount, campus, authorId, favourite, bought, buyerId, buyerUsername
         })
         // console.log(favouriteItems.favourites)
         // console.log(favouriteItems.getFavouriteIds())
