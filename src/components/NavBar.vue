@@ -40,6 +40,10 @@ const redirectToSignUp = () => {
     router.push('/sign_up')
 }
 
+const redirectCreateItem = () => {
+    router.push('/create_item')
+}
+
 const loadSession = () => {
     if(!session.loggedIn){
         return;
@@ -77,6 +81,13 @@ loadSession();
                         <CNavItem>
                             <CNavLink class="clickableItem" active>
                                 Messages
+                            </CNavLink>
+                        </CNavItem>
+                    </div>
+                    <div v-if="loggedIn === true">
+                        <CNavItem>
+                            <CNavLink class="clickableItem" active @click="redirectCreateItem">
+                                Create Item
                             </CNavLink>
                         </CNavItem>
                     </div>
