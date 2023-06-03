@@ -6,6 +6,7 @@ import { ref } from 'vue';
 import  router  from '../router/index'
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { sessionStore } from '../stores/session';
+import UploadWidget from "./UploadWidget.vue";
 
 const session = sessionStore();
 
@@ -35,6 +36,10 @@ const loadSession = () => {
     token.value = session.jwt;
 }
 
+const updateImgURL = (secureUrl) => {
+  imgURL.value = secureUrl;
+};
+
 const swapSignUpButtonState = () => {
     signUpButtonDisabled.value = !signUpButtonDisabled.value;
 }
@@ -43,7 +48,6 @@ const API_URL = 'https://backend-vue.onrender.com';
 const formError = ref(false);
 
 const createItemRequest = async () => {
-    //Disable SignUp Button
     swapSignUpButtonState();
 
     const body = {
@@ -52,7 +56,7 @@ const createItemRequest = async () => {
         "category": category.value,
         "amount": parseInt(amount.value),
         "campus": campus.value,
-        "imagesURL": ["https://falabella.scene7.com/is/image/Falabella/gsc_118377877_2074332_1?wid=240&hei=240&qlt=70&fmt=webp"]
+        "imagesURL": [imgURL.value]
     }
 
     console.log(body);
@@ -80,7 +84,11 @@ const createItemRequest = async () => {
     redirectToItemsPage();
 }
 
-    loadSession();
+function updateImgURLHandler(secureUrl) {
+    imgURL.value = secureUrl;
+}
+
+loadSession();
 </script>
 
 <template>
@@ -97,10 +105,7 @@ const createItemRequest = async () => {
         />
         <br>
         
-        <CFormInput
-            type="file" 
-            @input="imgURL = $event.target.value"
-        />
+        <UploadWidget :updateImgURL="updateImgURLHandler" />
         <br>
 
         <CFormInput 
