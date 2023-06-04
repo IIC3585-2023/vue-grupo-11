@@ -5,6 +5,7 @@ import { messagingStore } from '../stores/messaging';
 import { toRef, reactive } from 'vue';
 import { API_URL } from "../global";
 import { sessionStore } from '../stores/session';
+import { onBeforeMount, onBeforeUnmount } from 'vue';
 
 const session = sessionStore();
 
@@ -14,6 +15,14 @@ const selectUser = (user) => {
     messaging.selected = true;
     messaging.user = user;
 }
+
+const interval = setInterval(() => {
+  getUserList();
+}, 10000)
+
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
 
 const userList = reactive([]);
 
@@ -33,10 +42,13 @@ const getUserList = async () => {
         return;
     }
 
-    userList.length = 0
     const responseBody = await res.json();
 
+    if(responseBody.length == userList.length) return;
+    userList.length = 0
+
     const userID = session.user.id;
+
 
     for(let userPair of responseBody){
         if(userPair.receiver_id != userID){

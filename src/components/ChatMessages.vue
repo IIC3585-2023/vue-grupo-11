@@ -106,7 +106,7 @@ getMessages();
 </script>
 
 <template>
-<CContainer style="height: 90%;">
+<CContainer style="height: 95%;">
   <CRow class="allign-items-start" style="height: 8%; max-height: 50px; width: 100%; border-bottom: 3px solid #bbb;">
     <div id="username" style="font-weight: bold; margin-bottom: 10%;">
       {{ messaging.user.username }}
@@ -128,16 +128,17 @@ getMessages();
     </CRow>
   </CContainer>
   <CRow class="allign-items-end" style="">
-    <CForm style="width: 80%; margin-top: 10px; border-top: #bbb;">
+    <!-- <CForm style="width: 80%; margin-top: 10px; border-top: #bbb;"> -->
           <CFormInput
-              style="width: 100%;"
+              style="margin-left: 10px; width: 80%;margin-top: 10px; border-top: #bbb;"
               type="text"
               id="exampleFormControlInput1"
               aria-describedby="exampleFormControlInputHelpInline"
               :value="inputMessage"
               @input="inputMessage = $event.target.value"
+              v-on:keyup.enter="sendMessage"
           />
-    </CForm>
+    <!-- </CForm> -->
     <img @click="sendMessage" src="../assets/send-button.png" style="max-width: 8%; margin-left: 5%; cursor: pointer; margin-top: 8px;" />
   </CRow>
 </CContainer>
