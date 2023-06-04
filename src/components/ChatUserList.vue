@@ -67,7 +67,7 @@ getUserList();
             </CCol>
             <CCol :md="8" class="noBorder">
             <CCardBody style="margin-top: 2%;" class="noBorder">
-                <CCardTitle>{{ user.username + user.id}}</CCardTitle>
+                <CCardTitle>{{ user.username}}</CCardTitle>
             </CCardBody>
             </CCol>
         </CRow>

@@ -12,7 +12,7 @@ import { toRef, watch } from 'vue';
 const messaging = messagingStore();
 const session = sessionStore();
 
-messaging.selected = false
+// messaging.selected = false
 
 const redirectToItems = () => {
     router.push('/login');

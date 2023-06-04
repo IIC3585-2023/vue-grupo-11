@@ -89,7 +89,7 @@ loadSession();
                 </CNavItem>
                 <div v-if="loggedIn === true">
                     <CNavItem>
-                        <CNavLink class="clickableItem" active>
+                        <CNavLink class="clickableItem" active @click="redirectToMessages">
                             Messages
                         </CNavLink>
                     </CNavItem>
