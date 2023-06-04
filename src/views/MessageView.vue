@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from '../components/navbar.vue'
+import NavBar from '../components/NavBar.vue'
 import { sessionStore } from '../stores/session';
 import  router  from '../router/index';
 import { API_URL } from "../global";

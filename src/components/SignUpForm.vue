@@ -103,7 +103,7 @@ const signUpRequest = async () => {
 </div>
 </template>
 
-<style>
+<style scoped>
 #form {
     width: 70%; 
     padding-left: 25%; 
@@ -117,10 +117,10 @@ const signUpRequest = async () => {
     margin-top: 10%;
 }
 #formTitle{
-    padding-left: 20%;
+    padding-left: 30%;
 }
 #signupButton {
-    margin-left: 35%;
+    margin-left: 40%;
     margin-bottom: 5%;
 }
 </style>

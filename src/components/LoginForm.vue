@@ -114,10 +114,10 @@ const loginRequest = async () => {
     margin-top: 10%;
 }
 #formTitle{
-    padding-left: 25%;
+    padding-left: 32%;
 }
 #loginButton {
-    margin-left: 35%;
+    margin-left: 40%;
     margin-bottom: 15%;
 }
 </style>
