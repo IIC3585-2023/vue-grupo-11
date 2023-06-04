@@ -37,7 +37,7 @@ const onBuySetSelected = (userID) => {
                 </CCol>
                 
                 <CCol>
-                    <div style="height: 90%; margin-top: 0px;" v-if="messaging.selected == true">
+                    <div style="height: 600px; margin-top: 0px;" v-if="messaging.selected == true">
                         <ChatMessages :user="messaging.user">
 
                         </ChatMessages>

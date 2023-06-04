@@ -106,13 +106,13 @@ getMessages();
 </script>
 
 <template>
-<CContainer style="height: 70%; max-height: 800px;">
+<CContainer style="height: 90%;">
   <CRow class="allign-items-start" style="height: 8%; max-height: 50px; width: 100%; border-bottom: 3px solid #bbb;">
     <div id="username" style="font-weight: bold; margin-bottom: 10%;">
       {{ messaging.user.username }}
     </div>
   </CRow>
-  <CContainer style="overflow-y:scroll; overflow-x: hidden; max-height: 90%; min-height: 80%;">
+  <CContainer style="overflow-y:scroll; overflow-x: hidden; height: 80%;">
     <CRow v-for="message in messages" class="allign-items-middle" style="max-height: 600px;">
       <div v-if="message.sender_id != session.user.id" class="container" style="max-height: 100px;">
         <img src="../assets/person.png" alt="Avatar">
