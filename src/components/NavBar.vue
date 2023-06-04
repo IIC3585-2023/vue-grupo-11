@@ -87,13 +87,6 @@ loadSession();
                         Favourite Items
                     </CNavLink>
                 </CNavItem>
-                    <div v-if="loggedIn === true">
-                        <CNavItem>
-                            <CNavLink class="clickableItem" active @click="redirectToMessages">
-                                Messages
-                            </CNavLink>
-                        </CNavItem>
-                    </div>
                 <div v-if="loggedIn === true">
                     <CNavItem>
                         <CNavLink class="clickableItem" active>
