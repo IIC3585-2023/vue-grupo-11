@@ -4,6 +4,8 @@ import ItemsView from '../views/ItemsView.vue'
 import LoginView from '../views/LoginView.vue'
 import SignUpView from '../views/SignUpView.vue'  
 import MessageView from '../views/MessageView.vue'
+import MyItemsView from '../views/MyItemsView.vue'
+import CreateItemView from '../views/CreateItemView.vue'  
 
 
 const router = createRouter({
@@ -32,7 +34,16 @@ const router = createRouter({
     {
       path: '/messages',
       name: 'messages',
-      component: MessageView 
+      component: MessageView
+    }
+      path: '/my_items',
+      name: 'my_items',
+      component: MyItemsView
+    },
+    {
+      path: '/create_item',
+      name: 'create_item',
+      component: CreateItemView
     }
   ]
 })

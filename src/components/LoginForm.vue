@@ -58,7 +58,7 @@ const loginRequest = async () => {
     session.jwt = responseBody.jwt;
     session.user = responseBody.user;
 
-    redirectToItems();
+    redirectToHome();
 }
 
 </script>
