@@ -106,26 +106,27 @@ getMessages();
 </script>
 
 <template>
-<CContainer style="height: 70%; max-height: 600px;">
+<CContainer style="height: 70%; max-height: 800px;">
   <CRow class="allign-items-start" style="height: 8%; max-height: 50px; width: 100%; border-bottom: 3px solid #bbb;">
     <div id="username" style="font-weight: bold; margin-bottom: 10%;">
       {{ messaging.user.username }}
     </div>
   </CRow>
-  <CRow v-for="message in messages" class="allign-items-middle" style="max-height: 600px;">
-    <div v-if="message.sender_id != session.user.id" class="container" style="max-height: 100px;">
-      <img src="../assets/person.png" alt="Avatar">
-      <p>{{ message.text }}</p>
-      <span class="time-right">11:00</span>
-    </div>
+  <CContainer style="overflow-y:scroll; overflow-x: hidden; max-height: 90%; min-height: 80%;">
+    <CRow v-for="message in messages" class="allign-items-middle" style="max-height: 600px;">
+      <div v-if="message.sender_id != session.user.id" class="container" style="max-height: 100px;">
+        <img src="../assets/person.png" alt="Avatar">
+        <p>{{ message.text }}</p>
+        <span class="time-right">11:00</span>
+      </div>
 
-    <div v-else class="container darker">
-      <img src="../assets/person.png" alt="Avatar" class="right" style="max-height: 100px;">
-      <p>{{ message.text }}</p>
-      <span class="time-left">11:01</span>
-    </div>
-
-  </CRow>
+      <div v-else class="container darker">
+        <img src="../assets/person.png" alt="Avatar" class="right" style="max-height: 100px;">
+        <p>{{ message.text }}</p>
+        <span class="time-left">11:01</span>
+      </div>
+    </CRow>
+  </CContainer>
   <CRow class="allign-items-end" style="">
     <CForm style="width: 80%; margin-top: 10px; border-top: #bbb;">
           <CFormInput
