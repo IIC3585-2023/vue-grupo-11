@@ -8,6 +8,8 @@ import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { sessionStore } from "../stores/session";
 import { API_URL } from "../global.js";
 import { messagingStore } from '../stores/messaging';
+import starEmptyIcon from '../assets/star.svg'
+import starFilledIcon from '../assets/star-fill.svg'
 
 const session = sessionStore();
 const messaging = messagingStore();
@@ -18,6 +20,9 @@ if (session.loggedIn) {
     currentUserId = session.user.id;
     token = session.jwt
 }
+
+const starEmpty = starEmptyIcon;
+const starFilled = starFilledIcon
 
 const props = defineProps({
     id: Number,
@@ -183,7 +188,7 @@ const editItem = () => {
             <div class="d-flex justify-content-between">
                 {{ author }}
                 <!-- {{ id }} -->
-                <img :src="[favourite ? 'src/assets/star-fill.svg' : 'src/assets/star.svg']" v-on:click="toggleFavourite"/>
+                <img :src="[favourite ? starFilled : starEmpty]" v-on:click="toggleFavourite"/>
             </div>
             {{ campus }}
         </CCardHeader>

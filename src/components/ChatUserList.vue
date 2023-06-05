@@ -7,6 +7,10 @@ import { API_URL } from "../global";
 import { sessionStore } from '../stores/session';
 import { onBeforeMount, onBeforeUnmount } from 'vue';
 
+import personIcon from '../assets/person.png'
+
+const person = personIcon;
+
 const session = sessionStore();
 
 const messaging = messagingStore();
@@ -75,7 +79,7 @@ getUserList();
     <CCard v-for="user in userList" class="mb-3 userCard" @click="() => selectUser(user)">
         <CRow class="g-0 noBorder" >
             <CCol :md="4" class="noBorder">
-                <CCardImage style="width: 20%; margin-left: 25%; margin-top: 14%; border-radius: 30% !important;"  class="rounded-0 noBorder" src="../src/assets/person.png" />
+                <CCardImage style="width: 20%; margin-left: 25%; margin-top: 14%; border-radius: 30% !important;"  class="rounded-0 noBorder" :src="person" />
             </CCol>
             <CCol :md="8" class="noBorder">
             <CCardBody style="margin-top: 2%;" class="noBorder">

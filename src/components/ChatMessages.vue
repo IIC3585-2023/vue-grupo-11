@@ -6,6 +6,9 @@ import { onBeforeMount, onBeforeUnmount, reactive } from 'vue';
 import { API_URL } from '../global';
 import { sessionStore } from '../stores/session';
 import { ref } from 'vue';
+import personIcon from '../assets/person.png';
+
+const person = personIcon;
 
 const messaging = messagingStore();
 const session = sessionStore();
@@ -115,13 +118,13 @@ getMessages();
   <CContainer style="overflow-y:scroll; overflow-x: hidden; height: 80%;">
     <CRow v-for="message in messages" class="allign-items-middle" style="max-height: 600px;">
       <div v-if="message.sender_id != session.user.id" class="container" style="max-height: 100px;">
-        <img src="../assets/person.png" alt="Avatar">
+        <img :src="person" alt="Avatar">
         <p>{{ message.text }}</p>
         <span class="time-right">11:00</span>
       </div>
 
       <div v-else class="container darker">
-        <img src="../assets/person.png" alt="Avatar" class="right" style="max-height: 100px;">
+        <img :src="person" alt="Avatar" class="right" style="max-height: 100px;">
         <p>{{ message.text }}</p>
         <span class="time-left">11:01</span>
       </div>
