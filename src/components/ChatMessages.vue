@@ -97,6 +97,8 @@ const getMessages = async () => {
   }
 
   for(let message of responseBody){
+    const date = new Date(message.createdAt);
+    message.time = date.toLocaleTimeString('en-US');
     messages.push(message)
   };
 };
@@ -120,13 +122,13 @@ getMessages();
       <div v-if="message.sender_id != session.user.id" class="container" style="max-height: 100px;">
         <img :src="person" alt="Avatar">
         <p>{{ message.text }}</p>
-        <span class="time-right">11:00</span>
+        <span class="time-right">{{ message.time }}</span>
       </div>
 
       <div v-else class="container darker">
         <img :src="person" alt="Avatar" class="right" style="max-height: 100px;">
         <p>{{ message.text }}</p>
-        <span class="time-left">11:01</span>
+        <span class="time-left">{{ message.time }}</span>
       </div>
     </CRow>
   </CContainer>
