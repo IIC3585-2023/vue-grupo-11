@@ -80,8 +80,8 @@ loadSession();
     <CNavbar expand="lg" color-scheme="light" class="bg-light">
         <CContainer fluid class="position-relative">
             <CNavbarBrand class="clickableItem" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
-            <CNavbarToggler @click="toggleNavbar = !toggleNavbar"/>
-            <CCollapse class="navbar-collapse" :visible="toggleNavbar">
+            <CNavbarToggler/>
+            <CCollapse class="navbar-collapse">
             <CNavbarNav>
                 <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
