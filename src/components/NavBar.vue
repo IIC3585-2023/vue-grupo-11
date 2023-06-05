@@ -23,6 +23,7 @@ import { ref } from 'vue';
 const session = sessionStore();
 const favouriteItems = useFavouriteStore();
 
+const toggleNavbar = ref(false);
 
 const loggedIn = ref(false);
 const username = ref("");
@@ -79,8 +80,8 @@ loadSession();
     <CNavbar expand="lg" color-scheme="light" class="bg-light">
         <CContainer fluid class="position-relative">
             <CNavbarBrand class="clickableItem" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
-            <CNavbarToggler />
-            <CCollapse class="navbar-collapse">
+            <CNavbarToggler @click="toggleNavbar = !toggleNavbar"/>
+            <CCollapse class="navbar-collapse" :visible="toggleNavbar">
             <CNavbarNav>
                 <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
