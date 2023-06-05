@@ -14,8 +14,8 @@ import { RouterLink } from 'vue-router';
 import { CNavbarNav } from '@coreui/vue';
 import { CIcon } from '@coreui/icons-vue';
 import { cilPeople } from '@coreui/icons';
-import  router  from '../router/index'
-import '@coreui/coreui/dist/css/coreui.min.css'
+import  router  from '../router/index';
+import '@coreui/coreui/dist/css/coreui.min.css';
 import { sessionStore } from '../stores/session';
 import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { ref } from 'vue';

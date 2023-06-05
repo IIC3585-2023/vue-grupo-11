@@ -177,7 +177,8 @@ const contactBuyer = () => {
 
 const editItem = () => {
     //TODO: Hacer que esta funcion haga lo que tenga que hacer
-    console.log(`Tried to edit item ${id}!`)
+    router.push({path: `/edit_item/${id}`});
+
 }
 </script>
 

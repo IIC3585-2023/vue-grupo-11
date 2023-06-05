@@ -1,5 +1,5 @@
 <script setup>
-import { CForm, CFormInput, CCard, CFormCheck, CButton, CCol, CContainer, CRow, CAlert, CFormSelect } from '@coreui/vue';
+import { CForm, CFormInput, CCard, CFormCheck, CButton, CCol, CContainer, CRow, CAlert, CFormSelect, CCardImage } from '@coreui/vue';
 import { CIcon } from '@coreui/icons-vue';
 import { cilWarning } from '@coreui/icons';
 import { ref } from 'vue';
@@ -7,10 +7,14 @@ import  router  from '../router/index'
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { sessionStore } from '../stores/session';
 import UploadWidget from "./UploadWidget.vue";
+import { useRoute } from 'vue-router';
 
 const session = sessionStore();
+const route = useRoute();
+const itemId = ref(route.params.id)._value;
 
 // Form data
+const id = ref(-1);
 const title = ref("");
 const imgURL = ref("");
 const description = ref("");
@@ -62,9 +66,9 @@ const createItemRequest = async () => {
 
     console.log(body);
 
-    const URL = API_URL + '/items';
+    const URL = API_URL + `/items/${itemId}`;
     const res = await fetch(URL, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token.value}`,
@@ -85,19 +89,77 @@ const createItemRequest = async () => {
     redirectToItemsPage();
 }
 
+const deleteItemRequest = async () => {
+    const URL = API_URL + `/items/${itemId}`;
+    const res = await fetch(URL, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token.value}`,
+        },
+    });
+
+    const resJson = await res.json();
+    console.log(resJson);
+
+    if(res.status == 200){
+        redirectToItemsPage();
+        return;
+    }
+
+}
+
 function updateImgURLHandler(secureUrl) {
     imgURL.value = secureUrl;
 }
 
+const loadItem = async () => {console.log(itemId)
+    const response = await fetch(`${API_URL}/items/${itemId}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (response.status === 200) {
+        const rawProps = await response.json();
+        console.log(rawProps)
+        
+        if (rawProps.length > 0) {
+            id.value =  rawProps[0].id;
+            title.value =  rawProps[0].title;
+            imgURL.value =  rawProps[0].imagesURL[0];
+            description.value =  rawProps[0].description;
+            category.value =  rawProps[0].category;
+            amount.value =  rawProps[0].amount;
+            campus.value =  rawProps[0].campus;
+            console.log(imgURL)
+
+            if (session.user.id != id.value) {
+                console.log("cant edit")
+            } else {
+                // can edit
+            }
+
+        } else {
+            console.log('No item found');
+            // Handle the case where no item is found
+        }
+
+    } else {
+        console.log('Failed to fetch :(')
+    }
+}
+
 loadSession();
+loadItem();
 </script>
 
 <template>
     <div>
     <CForm id="form">
             <!-- text: text under the input box -->
-        <p class="fs-1" id="formTitle">List an item for sale</p>
+        <p class="fs-1" id="formTitle">Edit Item</p>
         <CFormInput 
+            v-model="title"
             label="Title" 
             type="text" 
             placeholder="Item name" 
@@ -106,10 +168,14 @@ loadSession();
         />
         <br>
         
+        <CCardImage v-bind:src="imgURL" class="scaled-image" />
+        <div></div>
+        <br>
         <UploadWidget :updateImgURL="updateImgURLHandler" />
         <br>
 
         <CFormInput 
+            v-model="description"
             label="Description" 
             type="text" 
             placeholder="Description" 
@@ -119,6 +185,7 @@ loadSession();
         <br>
 
         <CFormInput 
+            v-model="amount"
             label="Price" 
             type="number" 
             placeholder="9999" 
@@ -128,7 +195,7 @@ loadSession();
         />
         <br>
         
-        <CFormSelect aria-label="Default select example" @input="category = $event.target.value">
+        <CFormSelect  v-model="category" aria-label="Default select example" @input="category = $event.target.value">
             <option>Categories</option>
             <option value="Computadores y Electronica">Computadores y Electronica</option>
             <option value="Ropa">Ropa</option>
@@ -138,6 +205,7 @@ loadSession();
         <br>
 
         <CFormInput 
+            v-model="campus"
             label="Campus" 
             type="text" 
             placeholder="San Joaquin" 
@@ -154,9 +222,14 @@ loadSession();
                 </div>
             </CAlert>
         </div>
+
         <CButton :disabled="signUpButtonDisabled" id="signupButton" color="primary" @click="createItemRequest">
-            List item
+            Update item
         </CButton>
+        <CButton :disabled="signUpButtonDisabled" id="signupButton" color="danger" @click="deleteItemRequest">
+            Delete item
+        </CButton>
+        <br>
         
     </CForm>
 </div>
@@ -178,8 +251,8 @@ loadSession();
 #formTitle{
     padding-left: 20%;
 }
-#signupButton {
-    margin-left: 35%;
-    margin-bottom: 5%;
+.scaled-image {
+  max-width: 200px; /* Set the maximum width you want for the image */
+  height: auto; /* Maintain the image's aspect ratio */
 }
 </style>
