@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import MyItemsView from '../views/MyItemsView.vue'
 import CreateItemView from '../views/CreateItemView.vue'  
+import EditItemView from '../views/EditItemView.vue'  
 
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/create_item',
       name: 'create_item',
       component: CreateItemView
+    },
+    {
+      path: '/edit_item/:id',
+      name: 'edit_item',
+      component: EditItemView
     }
   ]
 })

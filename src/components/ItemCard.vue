@@ -3,6 +3,7 @@ import { CCard, CCardImage, CCardBody, CCardTitle, CCardText,
         CCardSubtitle, CCardHeader, CButton, CCardFooter } from "@coreui/vue";
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { ref } from 'vue'
+import  router  from '../router/index';
 
 import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { sessionStore } from "../stores/session";
@@ -101,7 +102,8 @@ const contactBuyer = () => {
 
 const editItem = () => {
     //TODO: Hacer que esta funcion haga lo que tenga que hacer
-    console.log(`Tried to edit item ${id}!`)
+    router.push({path: `/edit_item/${id}`});
+
 }
 </script>
 
