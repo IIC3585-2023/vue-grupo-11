@@ -80,8 +80,8 @@ loadSession();
     <CNavbar expand="lg" color-scheme="light" class="bg-light">
         <CContainer fluid class="position-relative">
             <CNavbarBrand class="clickableItem" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
-            <CNavbarToggler/>
-            <CCollapse class="navbar-collapse">
+            <CNavbarToggler @click="toggleNavbar = !toggleNavbar"/>
+            <CCollapse class="navbar-collapse" :visible="toggleNavbar">
             <CNavbarNav>
                 <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
@@ -107,22 +107,28 @@ loadSession();
                         </CNavLink>
                     </CNavItem>
                 </div>
+                <div v-if="toggleNavbar === true">
+                    <CDropdownItem style="margin-bottom: 10px;">{{ 'Username:  ' + username }}</CDropdownItem>
+                    <CDropdownItem @click="signOut">Sign Out</CDropdownItem>
+                </div>
             </CNavbarNav>
-            <CDropdown id="iconDropdown" class="position-absolute top-0 end-0">
-                <CDropdownToggle color="primary">
-                    <CIcon :icon="cilPeople" size="xl"/>
-                </CDropdownToggle>
-                <CDropdownMenu>
-                    <div v-if="loggedIn !== true">
-                        <CDropdownItem @click="redirectToLogin">Login</CDropdownItem>
-                        <CDropdownItem @click="redirectToSignUp">Sign up</CDropdownItem>
-                    </div>
-                    <div v-else>
-                        <CDropdownItem>{{ username }}</CDropdownItem>
-                        <CDropdownItem @click="signOut">Sign Out</CDropdownItem>
-                    </div>
-                </CDropdownMenu>
-            </CDropdown>
+            <div v-if="toggleNavbar === false">
+                <CDropdown id="iconDropdown" class="position-absolute top-0 end-0">
+                    <CDropdownToggle color="primary">
+                        <CIcon :icon="cilPeople" size="xl"/>
+                    </CDropdownToggle>
+                    <CDropdownMenu>
+                        <div v-if="loggedIn !== true">
+                            <CDropdownItem @click="redirectToLogin">Login</CDropdownItem>
+                            <CDropdownItem @click="redirectToSignUp">Sign up</CDropdownItem>
+                        </div>
+                        <div v-else>
+                            <CDropdownItem>{{ username }}</CDropdownItem>
+                            <CDropdownItem @click="signOut">Sign Out</CDropdownItem>
+                        </div>
+                    </CDropdownMenu>
+                </CDropdown>
+            </div>
 
             </CCollapse>
         </CContainer>
