@@ -17,9 +17,12 @@ import { cilPeople } from '@coreui/icons';
 import  router  from '../router/index';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import { sessionStore } from '../stores/session';
+import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { ref } from 'vue';
 
 const session = sessionStore();
+const favouriteItems = useFavouriteStore();
+
 
 const loggedIn = ref(false);
 const username = ref("");
@@ -40,6 +43,9 @@ const redirectToSignUp = () => {
     router.push('/sign_up')
 }
 
+const redirectToMessages = () => {
+    router.push('/messages');
+}
 const redirectToMyItemsView = () => {
     router.push('/my_items')
 }
@@ -61,6 +67,7 @@ const signOut = () => {
     loggedIn.value = false;
     username.value = false;
     session.$reset();
+    favouriteItems.reset();
     redirectToLogin();
 }
 
@@ -73,7 +80,7 @@ loadSession();
         <CContainer fluid class="position-relative">
             <CNavbarBrand class="clickableItem" @click="redirectToHomePage">MarketplaceUC</CNavbarBrand>
             <CNavbarToggler />
-            <CCollapse class="navbar-collapse" :visible="visible">
+            <CCollapse class="navbar-collapse">
             <CNavbarNav>
                 <CNavItem v-if="loggedIn">
                     <CNavLink class="clickableItem" active @click="redirectToItemsPage">
@@ -82,7 +89,7 @@ loadSession();
                 </CNavItem>
                 <div v-if="loggedIn === true">
                     <CNavItem>
-                        <CNavLink class="clickableItem" active>
+                        <CNavLink class="clickableItem" active @click="redirectToMessages">
                             Messages
                         </CNavLink>
                     </CNavItem>

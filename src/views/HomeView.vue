@@ -3,7 +3,7 @@ import ItemCard from '../components/ItemCard.vue';
 import { ref } from "vue";
 import { API_URL } from "../global";
 import { CRow, CCol } from '@coreui/vue';
-import NavBar from '../components/navbar.vue';
+import NavBar from '../components/NavBar.vue';
 import { useFavouriteStore } from '../stores/favouriteItems.js';
 
 const favouriteStore = useFavouriteStore()

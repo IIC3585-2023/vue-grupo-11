@@ -3,13 +3,16 @@ import { CCard, CCardImage, CCardBody, CCardTitle, CCardText,
         CCardSubtitle, CCardHeader, CButton, CCardFooter } from "@coreui/vue";
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { ref } from 'vue'
-import  router  from '../router/index';
-
+import  router  from '../router/index'
 import { useFavouriteStore } from '../stores/favouriteItems.js'
 import { sessionStore } from "../stores/session";
 import { API_URL } from "../global.js";
+import { messagingStore } from '../stores/messaging';
+import starEmptyIcon from '../assets/star.svg'
+import starFilledIcon from '../assets/star-fill.svg'
 
 const session = sessionStore();
+const messaging = messagingStore();
 
 let currentUserId = null;
 let token = ''
@@ -17,6 +20,9 @@ if (session.loggedIn) {
     currentUserId = session.user.id;
     token = session.jwt
 }
+
+const starEmpty = starEmptyIcon;
+const starFilled = starFilledIcon
 
 const props = defineProps({
     id: Number,
@@ -50,6 +56,68 @@ const favourite = ref(props.favourite);
 
 const favouriteItems = useFavouriteStore();
 
+const redirectToMessages = () => {
+    router.push('/messages');
+};
+
+const setMessagingUser = () => {
+    messaging.selected = true;
+    messaging.user = {
+        username: author,
+        id: authorId
+    }
+}
+
+const sendBuyMessage = async () => {
+    const targetID = authorId;
+    const body = {
+        receiver_id: targetID, 
+        text: `Hola, acabo de comprar tu item ${title}`
+    }
+    
+    const response = await fetch(`${API_URL}/messages   `, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    const responseBody = await response.json()
+    if(response.status == 200){
+        console.log("Buy message sent");
+    }
+    else{
+        console.log(responseBody)
+        console.log("Error sending message");
+    }
+}
+
+const sendContactMessage = async () => {
+    const targetID = authorId;
+    const body = {
+        receiver_id: targetID, 
+        text: `Hola, estoy interesado en tu item ${title}`
+    }
+    
+    const response = await fetch(`${API_URL}/messages   `, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    const responseBody = await response.json()
+    if(response.status == 200){
+        console.log("Buy message sent");
+    }
+    else{
+        console.log(responseBody)
+        console.log("Error sending message");
+    }
+}
+
 const toggleFavourite = () => {
     favourite.value = !favourite.value
     //TODO: Agregar funcion para mantener los favoritos en el store.
@@ -79,6 +147,10 @@ const buyItem = async () => {
         });
         if (response.status === 200) {
             console.log('Response OK, item bought!');
+
+            await sendBuyMessage();
+            setMessagingUser();
+            redirectToMessages();
             //TODO: Redirect a los mensajes.
         }
         else {
@@ -90,9 +162,12 @@ const buyItem = async () => {
     }
 }
 
-const contactAuthor = () => {
+const contactAuthor = async () => {
     //TODO: Hacer que esta funcion haga lo que tiene que hacer
     console.log(`Contacted ${author} (ID: ${authorId})!`)
+    await sendContactMessage();
+    setMessagingUser();
+    redirectToMessages();
 }
 
 const contactBuyer = () => {
@@ -114,7 +189,7 @@ const editItem = () => {
             <div class="d-flex justify-content-between">
                 {{ author }}
                 <!-- {{ id }} -->
-                <img :src="[favourite ? 'src/assets/star-fill.svg' : 'src/assets/star.svg']" v-on:click="toggleFavourite"/>
+                <img :src="[favourite ? starFilled : starEmpty]" v-on:click="toggleFavourite"/>
             </div>
             {{ campus }}
         </CCardHeader>

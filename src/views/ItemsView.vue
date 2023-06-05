@@ -2,7 +2,7 @@
 import ItemCard from '../components/ItemCard.vue';
 import { CRow, CCol } from '@coreui/vue'
 import { useFavouriteStore } from '../stores/favouriteItems';
-import NavBar from '../components/navbar.vue'
+import NavBar from '../components/NavBar.vue'
 
 const favouriteStore = useFavouriteStore();
 

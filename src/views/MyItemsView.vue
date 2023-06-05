@@ -5,7 +5,7 @@ import { API_URL } from "../global";
 import { CRow, CCol, CHeader, CHeaderNav, CNavItem, CNavLink } from '@coreui/vue'
 import { sessionStore } from '../stores/session.js';
 import { useFavouriteStore } from '../stores/favouriteItems.js';
-import NavBar from '../components/navbar.vue'
+import NavBar from '../components/NavBar.vue'
 
 let soldProps = []
 let activeProps = []

@@ -23,9 +23,13 @@ export const useFavouriteStore = defineStore('favouriteItems', () => {
         // console.log(favourites)
     }
 
+    const reset = () => {
+        favourites.value = [];
+    }
+
     const favouriteIds = computed(() => { return favourites.map((item) => {
         return item.id
     })})
 
-    return {favourites, favouriteIds, addFavourite, removeById}
+    return {favourites, favouriteIds, addFavourite, removeById, reset}
 })
